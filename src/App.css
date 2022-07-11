@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color--background: #03071e;
+  --color--cards: #6a040f;
+  --text--card: #48cae4;
+  --text--back: #6ad505;
+  --card--shadow: #7a0058;
+}
+
+body {
+  background-color: var(--color--background);
+  font-family: 'Fredoka One', cursive;
+  color: white;
+
+}
+
+.residentCard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border-radius: 20px;
+  background-color: var(--color--cards);
+  width: 30vw;
+  font-family: 'Fredoka One', cursive;
+  -webkit-text-stroke: 2px #03071e;
+  text-shadow: 1px 1px 10px var(--text--back);
+  color: white;
+  box-shadow: 4px 4px 10px var(--card--shadow);
+}
+
+.residentCard:hover {
+  transform: scale(1.1);
+}
+
+
+span {
+  color: var(--text--card);
+}
+
+.residentCard>img {
+  width: 15vw;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.residentCard ul {
+  list-style: none;
+
+}
+
+.totalCards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+}
+
+.search {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search>ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-around;
+}
+
+.total>img {
+  width: 100vw;
+  position: fixed;
+}
+
+.app {
+  position: absolute;
+  top: 40vh;
+  background-color: var(--color--background);
+  width: 100%;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  -webkit-text-stroke: var(--color--background);
+  text-shadow: 1px 1px 1px var(--text--back);
+}
+
+.status {
+  background-color: aqua;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+select {
+  background-color: var(--color--background);
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  -webkit-text-stroke: var(--color--background);
+  text-shadow: 1px 1px 1px var(--text--back);
+  border-radius: 0 20px 20px 0px;
+  border: 1px solid white;
+  width: 100px;
+}
+
+.searchListUl {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+
+.searchListUl>li:hover {
+  cursor: pointer;
+  background-color: var(--text--back);
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+input {
+  background-color: var(--color--background);
+  font-family: 'Fredoka One', cursive;
+  color: white;
+  height: 50px;
+  border-radius: 20px 0 0 20px;
+  border: 1px solid white;
+}
+
+@media (max-width: 600px) {
+
+  .residentCard {
+    flex-direction: column;
+    width: 45%;
+  }
+
+  .residentCard>img {
+    width: 100%;
+    height: 18%;
+  }
+
+}
