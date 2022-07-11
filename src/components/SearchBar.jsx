@@ -7,13 +7,13 @@ const SearchBar = () => {
     const [location, setLocation] = useState({})
     const [residents, setResidents] = useState([])
     const [places, setPlaces] = useState([])
-    const [placeName, setPlaceName] = useState("")
+    const [loading, SetLoading] = useState(true)
 
     //code for save the array of places
     useEffect(() => {
         let i = 1
         while (i <= 7) {
-            console.log(i)
+
             axios.get(`https://rickandmortyapi.com/api/location?page=${i}`)
                 .then((res) => {
                     res.data.results.forEach((e) => { places[e.id] = e })
@@ -25,11 +25,12 @@ const SearchBar = () => {
 
     const changeLocation = function (ids) {
         let id = parseInt(ids)
-        console.log(id)
+
         axios.get(`https://rickandmortyapi.com/api/location/${id}`)
             .then((res) => {
                 setLocation(res.data)
                 setResidents(res.data.residents)
+                SetLoading(true)
             })
     }
 
@@ -46,7 +47,7 @@ const SearchBar = () => {
     }, [])
     let [searchResults, setSearchResults] = useState([])
     let filterSearch = function (data) {
-        console.log(data)
+
         searchResults = places.filter((e) => {
             return e.name.indexOf(data) !== -1
         })
@@ -60,41 +61,43 @@ const SearchBar = () => {
     }
     return (
         <div className="app">
-            <div className='search'>
-                <h1>Rick and Morty App</h1>
-                <div className='filter'>
-                <input placeholder='Enter the location name' type="text" onChange={(e) => { filterSearch(e.target.value) }} />
-                <select name="locations" id="" onChange={((e) => { changeLocation(e.target.value) })}>
-                    <option disabled="">Select the location</option>
-                    {
-                        selectArray.map((e) => {
+            {loading ? (
+            <>
+                <div className='search'>
+                    <h1>Rick and Morty App</h1>
+                    <div className='filter'>
+                        <input placeholder='Enter the location name' type="text" onChange={(e) => { filterSearch(e.target.value) }} />
+                        <select name="locations" id="" onChange={((e) => { changeLocation(e.target.value) })}>
+                            <option disabled="">Select the location</option>
+                            {
+                                selectArray.map((e) => {
 
-                            return (<option value={e.id} key={e.name}>{e.name}</option>)
-                        })
-                    }
-                </select>
-                
+                                    return (<option value={e.id} key={e.name}>{e.name}</option>)
+                                })
+                            }
+                        </select>
+
+                    </div>
+
+
+
+                    <h2>Location: {location.name}</h2>
+                    <ul>
+                        <li>Type: <span>{location.type}</span></li>
+                        <li>Dimension: <span>{location.dimension}</span></li>
+                        <li>Population: <span>{location.residents?.length}</span></li>
+                    </ul>
                 </div>
-                
-                
 
-                <h2>Location: {location.name}</h2>
-                <ul>
-                    <li>Type: <span>{location.type}</span></li>
-                    <li>Dimension: <span>{location.dimension}</span></li>
-                    <li>Population: <span>{location.residents?.length}</span></li>
-                </ul>
-            </div>
+                <h2>Residents</h2>
+                <div className='totalCards'>
+                    {residents.map((resident) => {
+                        resident
 
-            <h2>Residents</h2>
-            <div className='totalCards'>
-                {residents.map((resident) => {
-                    resident
-
-                    return (<ResidentInfo link={resident} key={resident} />)
-                })}
-            </div>
-
+                        return (<ResidentInfo link={resident} key={resident} />)
+                    })}
+                </div>
+            </>):(<h2>Loading...</h2>)}
         </div>
     );
 };
